@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Terminal from '../components/Terminal.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout title="~/portfolio">
+  <main class="max-w-4xl mx-auto px-4 py-8 md:py-16 space-y-8">
+
+    <!-- Boot line -->
+    <p class="text-term-dim text-sm">
+      Last login: {new Date().toDateString()} on ttys001
+    </p>
+
+    <!-- Hero terminal -->
+    <Terminal>
+      <div class="space-y-4">
+        <p>
+          <span class="text-term-dim">$</span> whoami
+        </p>
+        <h1 class="text-2xl md:text-4xl font-bold text-term-glow drop-shadow-[0_0_10px_rgba(51,255,51,0.6)]">
+          MOKSHA_GUNARATHNE
+        </h1>
+        <p class="text-term-green">
+          Full-stack developer // problem solver // terminal enthusiast
+        </p>
+
+        <p class="pt-4">
+          <span class="text-term-dim">$</span> cat about.txt
+        </p>
+        <p class="text-term-green leading-relaxed">
+          I build things for the web. I like clean code, fast sites,
+          and dark terminals. Currently exploring reverse engineering and binary exploitation.
+        </p>
+
+        <p class="pt-4">
+          <span class="text-term-dim">$</span> ls ./contact
+        </p>
+        <ul class="space-y-1">
+          <li>
+            <span class="text-term-dim">-rw-r--r--</span>
+            <a href="mailto:mokshasbg@proton.me" class="ml-2">email</a>
+          </li>
+          <li>
+            <span class="text-term-dim">-rw-r--r--</span>
+            <a href="https://github.com/mokshasbg" class="ml-2">github</a>
+          </li>
+          <li>
+            <span class="text-term-dim">-rw-r--r--</span>
+            <a href="https://linkedin.com/in/mokshasbg" class="ml-2">linkedin</a>
+          </li>
+        </ul>
+
+        <p class="pt-4 flex items-center">
+          <span class="text-term-dim">$</span>
+          <span class="ml-2 animate-blink">█</span>
+        </p>
+      </div>
+    </Terminal>
+
+    <!-- Projects -->
+    <Terminal user="guest" host="projects">
+      <div class="space-y-4">
+        <p>
+          <span class="text-term-dim">$</span> ls -la ./projects --sorted
+        </p>
+
+        <div class="grid gap-6 pt-2">
+          {projects.map((project, i) => (
+            <article class="border-l-2 border-term-dim pl-4 hover:border-term-glow transition-colors">
+              <div class="flex items-baseline justify-between flex-wrap gap-2">
+                <h2 class="text-lg font-bold text-term-glow">
+                  {String(i + 1).padStart(2, '0')}. {project.data.title}
+                </h2>
+                <span class="text-xs text-term-dim">{project.data.year}</span>
+              </div>
+              <p class="text-term-green mt-2 leading-relaxed">
+                {project.data.description}
+              </p>
+              <p class="text-term-dim text-sm mt-2">
+                stack: [{project.data.stack.join(', ')}]
+              </p>
+              <div class="flex gap-4 mt-2 text-sm">
+                {project.data.link && (
+                  <a href={project.data.link} target="_blank">→ live</a>
+                )}
+                {project.data.repo && (
+                  <a href={project.data.repo} target="_blank">→ source</a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p class="pt-4 flex items-center">
+          <span class="text-term-dim">$</span>
+          <span class="ml-2 animate-blink">█</span>
+        </p>
+      </div>
+    </Terminal>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-term-dim pt-8">
+      <p>// © {new Date().getFullYear()} — built with astro + tailwind</p>
+      <p class="mt-1">
+        press <kbd class="border border-term-dim px-1">ctrl</kbd> +
+        <kbd class="border border-term-dim px-1">c</kbd> to exit (just kidding)
+      </p>
+    </footer>
+  </main>
+</BaseLayout>
