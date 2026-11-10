@@ -1,22 +1,74 @@
 ---
+import '../styles/terminal.css';
+import { promptHtml, renderInitialTranscript } from '../lib/commands';
+import type { Profile, Project } from '../lib/types';
+
 interface Props {
-  user?: string;
-  host?: string;
+  profile: Profile;
+  projects: Project[];
 }
 
-const { user = 'guest', host = 'portfolio' } = Astro.props;
+const { profile, projects } = Astro.props;
+
+const initialTranscript = renderInitialTranscript({
+  profile,
+  projects,
+  history: [],
+  sessionStart: Date.now(),
+});
+
+// Escape "<" so content containing "</script>" cannot break out of the JSON block.
+const terminalDataJson = JSON.stringify({ profile, projects }).replace(/</g, '\\u003c');
 ---
 
-<div class="terminal-window border border-term-dim rounded-md bg-term-bgAlt shadow-[0_0_30px_rgba(51,255,51,0.15)]">
-  <div class="terminal-header flex items-center gap-2 px-3 py-2 border-b border-term-dim bg-black">
-    <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
-    <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
-    <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
-    <span class="ml-4 text-xs text-term-dim">
-      {user}@{host}: ~
-    </span>
+<section class="terminal" id="terminal" aria-label="Interactive portfolio terminal">
+  <header class="term-bar">
+    <span class="term-dot term-dot--red" aria-hidden="true"></span>
+    <span class="term-dot term-dot--yellow" aria-hidden="true"></span>
+    <span class="term-dot term-dot--green" aria-hidden="true"></span>
+    <span class="term-title">{profile.user}@{profile.host}: {profile.path}</span>
+  </header>
+
+  <div class="term-screen">
+    <div
+      id="term-output"
+      role="log"
+      aria-live="polite"
+      aria-relevant="additions"
+      aria-label="Terminal output"
+      set:html={initialTranscript}
+    ></div>
+
+    <div class="term-input-row" id="term-input-row">
+      <span set:html={promptHtml(profile)} aria-hidden="true"></span>
+      <span class="term-line">
+        <span class="term-typed" id="term-typed" aria-hidden="true"></span>
+        <span class="term-caret" aria-hidden="true"></span>
+      </span>
+      <input
+        id="term-input"
+        class="term-hidden-input"
+        type="text"
+        aria-label="Type a command and press Enter. Type help to list commands."
+        autocomplete="off"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        enterkeyhint="send"
+      />
+    </div>
+
+    <noscript>
+      <p class="term-noscript">
+        JavaScript is off, so the prompt is not interactive — but every link in the transcript above still works.
+      </p>
+    </noscript>
   </div>
-  <div class="p-4 md:p-6">
-    <slot />
-  </div>
-</div>
+</section>
+
+<script type="application/json" id="term-data" is:inline set:html={terminalDataJson}></script>
+<script>
+  import { initTerminal } from '../lib/terminal';
+
+  initTerminal();
+</script>

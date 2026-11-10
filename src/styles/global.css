@@ -1,72 +1,106 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
+ * Tailwind v4 reads theme tokens from CSS. The old tailwind.config.mjs was
+ * never loaded by v4, which is why classes like `text-term-green` did nothing.
+ */
+@theme {
+  --color-term-green: #33ff33;
+  --color-term-dim: #1a8f1a;
+  --color-term-glow: #66ff66;
+  --color-term-bg: #0a0a0a;
+  --color-term-bg-alt: #111111;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+}
 
-@layer base {
-  html {
-    background: #0a0a0a;
-    color: #33ff33;
-    font-family: 'IBM Plex Mono', 'Courier New', monospace;
-    cursor: text;
+:root {
+  --font-term: "IBM Plex Mono", "Courier New", ui-monospace, monospace;
+
+  --term-fg: #33ff33;
+  --term-dim: #1a8f1a;
+  --term-glow: #66ff66;
+  --term-bg: #0a0a0a;
+  --term-panel: #111111;
+  --term-panel-strong: #000000;
+  --term-border: #1a5a1a;
+  --term-border-soft: #143f14;
+  --term-glow-soft: rgba(51, 255, 51, 0.15);
+  --term-fg-soft: rgba(51, 255, 51, 0.07);
+  --term-scanline: rgba(0, 0, 0, 0.17);
+
+  color-scheme: dark;
+}
+
+html {
+  background: var(--term-bg);
+  color: var(--term-fg);
+  font-family: var(--font-term);
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--term-glow-soft), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, var(--term-fg-soft), transparent 50%),
+    var(--term-bg);
+  color: var(--term-fg);
+  font-family: var(--font-term);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* CRT scanlines. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    var(--term-scanline),
+    var(--term-scanline) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.55;
+}
+
+/* Soft vignette. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 48%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--term-fg);
+  color: var(--term-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
-
-  body {
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-  }
-
-  /* CRT scanlines */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    pointer-events: none;
-    z-index: 50;
-  }
-
-  /* Subtle green glow overlay */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(51, 255, 51, 0.05) 0%,
-      transparent 70%
-    );
-    pointer-events: none;
-    z-index: 40;
-  }
-
-  a {
-    color: #33ff33;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-
-  a:hover {
-    background: #33ff33;
-    color: #0a0a0a;
-    text-decoration: none;
-  }
-
-  ::selection {
-    background: #33ff33;
-    color: #0a0a0a;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: #0a0a0a; }
-  ::-webkit-scrollbar-thumb { background: #1a8f1a; }
 }

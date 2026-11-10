@@ -1,0 +1,564 @@
+/* ── Page ──────────────────────────────────────────────────────────────── */
+
+.page {
+  width: 100%;
+  max-width: 56rem; /* the original max-w-4xl column */
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 1rem 2rem;
+}
+
+.boot-line {
+  margin: 0 0 1rem;
+  color: var(--term-dim);
+  font-size: 0.8rem;
+}
+
+.page-tip {
+  margin: 0.9rem 0 0;
+  color: var(--term-dim);
+  font-size: 0.8rem;
+}
+
+.page-footer {
+  margin-top: 2.5rem;
+  color: var(--term-dim);
+  font-size: 0.72rem;
+  line-height: 1.9;
+  text-align: center;
+}
+
+.page-footer p {
+  margin: 0;
+}
+
+/* ── Terminal window ───────────────────────────────────────────────────── */
+
+.terminal {
+  width: 100%;
+  overflow: hidden;
+  background: var(--term-panel);
+  border: 1px solid var(--term-border);
+  border-radius: 6px;
+  box-shadow: 0 0 30px var(--term-glow-soft);
+}
+
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--term-panel-strong);
+  border-bottom: 1px solid var(--term-border);
+  user-select: none;
+}
+
+.term-dot {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.term-dot--red { background: #ff5f57; }
+.term-dot--yellow { background: #febc2e; }
+.term-dot--green { background: #28c840; }
+
+.term-title {
+  min-width: 0;
+  margin-left: 0.6rem;
+  overflow: hidden;
+  color: var(--term-dim);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.term-screen {
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  cursor: text;
+}
+
+#term-output {
+  max-width: 100%;
+}
+
+/* ── Transcript ────────────────────────────────────────────────────────── */
+
+.t-block {
+  margin: 0 0 1rem;
+}
+
+.t-echo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.t-prompt {
+  white-space: nowrap;
+}
+
+.t-user { color: var(--term-fg); }
+.t-host { color: var(--term-glow); }
+.t-path { color: var(--term-dim); }
+.t-sign { color: var(--term-fg); }
+.t-cmd { color: var(--term-glow); overflow-wrap: anywhere; }
+
+/* ── Content ───────────────────────────────────────────────────────────── */
+
+.t-hero {
+  margin: 0.1rem 0 0.2rem;
+}
+
+.t-name {
+  color: var(--term-glow);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  text-shadow:
+    0 0 20px color-mix(in srgb, var(--term-glow) 35%, transparent),
+    0 0 2px var(--term-glow);
+}
+
+.t-tagline {
+  margin-top: 0.45rem;
+  color: var(--term-fg);
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.t-text {
+  max-width: 78ch;
+  margin: 0.2rem 0;
+  overflow-wrap: anywhere;
+}
+
+.t-dim { color: var(--term-dim); }
+.t-glow { color: var(--term-glow); }
+
+.t-error-line {
+  margin: 0.1rem 0;
+  color: var(--term-glow);
+  overflow-wrap: anywhere;
+}
+
+.t-error-name { color: var(--term-fg); }
+
+.t-code {
+  padding: 0 0.3em;
+  color: var(--term-glow);
+  font-size: 0.92em;
+  background: var(--term-fg-soft);
+  border: 1px solid var(--term-border-soft);
+  border-radius: 3px;
+}
+
+/* ── Contact rows ──────────────────────────────────────────────────────── */
+
+.t-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  margin-top: 0.1rem;
+}
+
+.t-row {
+  display: grid;
+  grid-template-columns: 10ch minmax(7ch, 12ch) 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.t-row--2 {
+  grid-template-columns: 10ch 1fr;
+}
+
+.t-perm {
+  color: var(--term-dim);
+  font-size: 0.86em;
+  white-space: nowrap;
+}
+
+.t-contact { width: fit-content; }
+
+.t-contact-value {
+  color: var(--term-dim);
+  font-size: 0.86em;
+  overflow-wrap: anywhere;
+}
+
+.t-link {
+  color: var(--term-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--term-dim);
+  text-underline-offset: 3px;
+}
+
+.t-link:hover,
+.t-link:focus-visible {
+  color: var(--term-bg);
+  background: var(--term-fg);
+  text-decoration: none;
+  outline: none;
+}
+
+/* ── Home listing ──────────────────────────────────────────────────────── */
+
+.t-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.2rem;
+}
+
+/* ── Projects ──────────────────────────────────────────────────────────── */
+
+.t-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 0.15rem;
+}
+
+.t-proj {
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--term-border);
+}
+
+.t-proj-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: baseline;
+}
+
+.t-proj-index {
+  color: var(--term-dim);
+  font-size: 0.84em;
+  letter-spacing: 0.05em;
+}
+
+.t-proj-title {
+  color: var(--term-glow);
+  font-weight: 700;
+}
+
+.t-year {
+  margin-left: auto;
+  color: var(--term-dim);
+  font-size: 0.82em;
+}
+
+.t-proj-desc {
+  max-width: 78ch;
+  margin: 0.25rem 0 0;
+  color: var(--term-fg);
+}
+
+.t-proj-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.9rem;
+  align-items: baseline;
+  margin-top: 0.3rem;
+  font-size: 0.86em;
+}
+
+.t-stack {
+  color: var(--term-dim);
+  overflow-wrap: anywhere;
+}
+
+.t-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.t-proj-cmd {
+  font-size: 0.9em;
+}
+
+/* ── Project detail ────────────────────────────────────────────────────── */
+
+.t-detail {
+  max-width: 78ch;
+  padding-left: 1rem;
+  border-left: 1px solid var(--term-border);
+}
+
+.t-detail-kicker {
+  color: var(--term-dim);
+  font-size: 0.8em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.t-detail-title {
+  margin: 0.15rem 0 0.5rem;
+  color: var(--term-glow);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.t-kv {
+  display: grid;
+  grid-template-columns: 9ch 1fr;
+  gap: 0.6rem;
+  align-items: baseline;
+  margin: 0.1rem 0;
+}
+
+.t-key { color: var(--term-dim); }
+
+.t-detail .t-text { margin: 0.6rem 0; }
+
+.t-detail-links { margin-top: 0.6rem; }
+
+.t-detail-hint {
+  margin-top: 0.7rem;
+  font-size: 0.84em;
+}
+
+/* ── Help / history / completions ──────────────────────────────────────── */
+
+.t-help-title {
+  margin: 0 0 0.45rem;
+  color: var(--term-glow);
+}
+
+.t-help {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+}
+
+.t-help-row {
+  display: flex;
+  gap: 1.2rem;
+  align-items: baseline;
+}
+
+.t-help-name {
+  flex: 0 0 17ch;
+  color: var(--term-glow);
+}
+
+.t-help-desc { color: var(--term-dim); }
+
+.t-help-keys {
+  margin-top: 0.8rem;
+  color: var(--term-dim);
+  font-size: 0.84em;
+}
+
+.t-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.t-history-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.t-completions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+  color: var(--term-dim);
+}
+
+.t-completion::before {
+  content: "· ";
+  color: var(--term-border);
+}
+
+/* ── Neofetch / banner ─────────────────────────────────────────────────── */
+
+.t-neofetch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem 2rem;
+  align-items: flex-start;
+}
+
+.t-ascii {
+  margin: 0;
+  color: var(--term-glow);
+  font-family: inherit;
+  font-size: 0.72rem;
+  line-height: 1.15;
+  text-shadow: 0 0 12px var(--term-glow-soft);
+}
+
+.t-sysinfo { min-width: 15rem; }
+
+.t-sysinfo .t-kv { grid-template-columns: 9ch 1fr; }
+
+.t-banner {
+  margin: 0;
+  overflow: hidden;
+  color: var(--term-glow);
+  font-family: inherit;
+  font-size: clamp(0.5rem, 2vw, 0.9rem);
+  line-height: 1.15;
+}
+
+/* ── Active prompt (same flow as the transcript) ───────────────────────── */
+
+.term-input-row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: baseline;
+  padding: 0;
+  cursor: text;
+}
+
+.term-line {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: baseline;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.term-typed {
+  min-width: 0;
+  color: var(--term-glow);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.term-caret {
+  display: inline-block;
+  width: 0.6ch;
+  height: 1.05em;
+  background: var(--term-fg);
+  box-shadow: 0 0 8px var(--term-glow-soft);
+  transform: translateY(0.15em);
+  animation: term-blink 1.1s steps(1, end) infinite;
+}
+
+.terminal:not(.is-focused) .term-caret {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--term-dim);
+  opacity: 0.55;
+  animation: none;
+}
+
+/* The real input is invisible but covers the prompt line, which keeps mobile
+   keyboards, paste, IME and screen readers working normally. */
+.term-hidden-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  color: transparent;
+  font-size: 16px;
+  background: transparent;
+  border: 0;
+  caret-color: transparent;
+  cursor: text;
+}
+
+.term-hidden-input:focus { outline: none; }
+
+.term-noscript {
+  margin: 0.8rem 0 0;
+  color: var(--term-dim);
+  font-size: 0.8rem;
+}
+
+/* ── Motion ────────────────────────────────────────────────────────────── */
+
+@keyframes term-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ── Small screens ─────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 2rem 1rem;
+  }
+
+  .boot-line {
+    margin-bottom: 0.75rem;
+  }
+
+  .term-screen {
+    padding: 1rem;
+  }
+
+  .t-name {
+    font-size: clamp(1.2rem, 7.2vw, 1.7rem);
+  }
+
+  .t-row:not(.t-row--2) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.7rem;
+    align-items: baseline;
+  }
+
+  .t-row:not(.t-row--2) .t-perm {
+    display: none;
+  }
+
+  .t-row:not(.t-row--2) .t-contact-value {
+    font-size: 0.82em;
+  }
+
+  .t-row--2 {
+    grid-template-columns: 8.5ch 1fr;
+  }
+
+  .t-help-row {
+    display: block;
+  }
+
+  .t-help-name {
+    display: block;
+  }
+
+  .t-help-desc {
+    padding-left: 1rem;
+  }
+
+  .t-ascii {
+    font-size: 0.55rem;
+  }
+
+  .page-footer {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .t-row--2 {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .t-row--2 .t-perm {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-caret {
+    animation: none;
+  }
+}
